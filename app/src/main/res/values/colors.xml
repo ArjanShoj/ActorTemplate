@@ -3,4 +3,41 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+
+    <color name="colorSecondary">#FF9800</color>
+    <color name="colorSecondaryDark">#EF6C00</color>
+
+    <color name="colorActionbar">#234F32</color>
+    <color name="colorActionbarDark">#092E20</color>
+    <color name="colorBackground">#2F2F2F</color>
+
+    <!-- special colors -->
+    <color name="gray_dark_transparent">#66DBDBDB</color>
+
+    <!-- grayscale -->
+    <color name="white"     >#FFFFFF</color>
+    <color name="white_gray">#F2F2F2</color>
+    <color name="gray_light">#DBDBDB</color>
+    <color name="gray"      >#939393</color>
+    <color name="gray_dark" >#5F5F5F</color>
+    <color name="black"     >#323232</color>
+
+    <!-- yellow -->
+    <color name="yellow">#FFEB3B</color>
+    <color name="yellow_dark">#FBC02D</color>
+
+    <!-- basic colors -->
+    <color name="green">#27D34D</color>
+    <color name="blue">#2A91BD</color>
+    <color name="orange">#FF9D2F</color>
+    <color name="red">#FF432F</color>
+
+    <!-- signin button colors -->
+    <color name="google_button">#4286F5</color>
+
+    <!-- project cards color -->
+    <color name="first_project_card">#227587</color>
+    <color name="second_project_card">#861E69</color>
+
+
 </resources>
