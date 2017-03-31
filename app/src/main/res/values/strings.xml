@@ -1,4 +1,28 @@
 <resources>
     <string name="app_name">Actor Template</string>
     <string name="action_settings">Settings</string>
+
+    <string name="label.signin.google">Google Sign In</string>
+    <string name="label.signin.facebook">Facebook Sign In</string>
+    <string name="label.signin.app">Sign In</string>
+
+    <string name="label.signin.email">E-mail</string>
+    <string name="label.signin.password">Password</string>
+    <string name="label.signin.login">Sign In</string>
+    <string name="label.signin.signup"><u>Don\'t have an account yet? Sign in here.</u></string>
+
+    <string name="label.signup.email">Type your e-mail</string>
+    <string name="label.signup.password">Choose a password</string>
+    <string name="label.signup.password.confirm">Confirm your password</string>
+    <string name="label.signup.button">Sign Up</string>
+
+    <string name="placeholder.card.project.name">Project name</string>
+    <string name="placeholder.card.project.summary">Project summary</string>
+    <string name="placeholder.profile.name">Arjan Shojaeian</string>
+    <string name="title_activity_main">MainActivity</string>
+
+    <string name="error.signup.empty">One of the fields are empty.</string>
+    <string name="error.signup.password.confirm">Password doesn\'t match with eachother.</string>
+    <string name="error.signin.login.fail">Email and password doesn\'t match.</string>
+    
 </resources>
