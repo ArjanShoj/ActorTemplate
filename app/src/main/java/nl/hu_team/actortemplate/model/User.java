@@ -2,20 +2,26 @@ package nl.hu_team.actortemplate.model;
 
 import android.net.Uri;
 
+import com.google.firebase.database.Exclude;
+
 public class User {
 
     private String username;
     private String email;
-    private final String userId;
+
+    @Exclude
+    private String userId;
+
     private String profilePhoto;
 
-    public User(String userId, String email){
+    public User(String userId, String email, String username, String profilePhoto){
         this.userId = userId;
         this.email = email;
+        this.username = username;
+        this.profilePhoto = profilePhoto;
     }
 
-    public User(String userId){
-        this.userId = userId;
+    public User(){
     }
 
     //setters
@@ -30,6 +36,10 @@ public class User {
 
     public void setProfilePhoto(String profilePhoto){
         this.profilePhoto = profilePhoto;
+    }
+
+    public void setUserId(String userId){
+        this.userId = userId;
     }
 
     //getters

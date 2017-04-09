@@ -1,14 +1,18 @@
 package nl.hu_team.actortemplate.model;
 
+import com.google.firebase.database.Exclude;
+
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Project {
+public class Project implements Serializable{
 
     private String name;
     private String summary;
 
-    private User analyst;
-    private ArrayList<User> teamMembers;
+    @Exclude private ActorTemplate actorTemplate;
+    @Exclude private boolean editable;
+    @Exclude private int cardColor;
 
     public Project(){
 
@@ -29,23 +33,23 @@ public class Project {
         this.summary = summary;
     }
 
-    public void setAnalyst(User user){
-        this.analyst = user;
+    public void setEditable(boolean editable){
+        this.editable = editable;
     }
 
-    public void addTeamMembers(User user){
-        this.teamMembers.add(user);
+    public void setActorTemplate(ActorTemplate actorTemplate){
+        this.actorTemplate = actorTemplate;
     }
 
-    public void removeTeamMembers(User user){
-        for (int i = 0; i < this.teamMembers.size(); i++){
-            if(this.teamMembers.get(i).getUserId().matches(user.getUserId())){
-                this.teamMembers.remove(i);
-            }
-        }
+    public void setCardColor(int cardColor) {
+        this.cardColor = cardColor;
     }
 
     //getters
+
+    public ActorTemplate getActorTemplate(){
+        return this.actorTemplate;
+    }
 
     public String getName(){
         return this.name;
@@ -55,20 +59,12 @@ public class Project {
         return this.summary;
     }
 
-    public ArrayList<User> getTeamMembers(){
-        return this.teamMembers;
+    public boolean isEditable(){
+        return this.editable;
     }
 
-    public User getAnalyst(){
-        return this.analyst;
+    public int getCardColor() {
+        return cardColor;
     }
 
-    public boolean isMember(User user){
-        for (User u: this.teamMembers) {
-            if(u.getUserId().matches(user.getUserId())){
-                return true;
-            }
-        }
-        return false;
-    }
 }
