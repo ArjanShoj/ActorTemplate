@@ -1,11 +1,15 @@
 package nl.hu_team.actortemplate.presenter;
 
+import android.util.Log;
+
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
@@ -16,45 +20,52 @@ import nl.hu_team.actortemplate.model.User;
 public class ProjectActivityPresenter extends BasePresenter{
 
     private final ProjectActivity view;
-    private User user;
     private DatabaseReference database;
 
+    private User user;
 
     public ProjectActivityPresenter(ProjectActivity view){
         this.view = view;
         this.database = FirebaseDatabase.getInstance().getReference();
+
+        this.user = createUser(FirebaseAuth.getInstance().getCurrentUser());
     }
 
     public interface ProjectActivityView {
         void toLoginActivity();
-        void addProject(Project project);
-    }
-
-    public void saveProject(Project project){
-        database.child("projects").push().setValue(project);
+        void addProject(Project project, boolean analysist);
     }
 
     public void setProjects(){
         database.child("projects").addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                Project project = dataSnapshot.getValue(Project.class);
+                final Project project = dataSnapshot.getValue(Project.class);
 
-                /*Iterable<DataSnapshot> teamChilderen = dataSnapshot.child("teammembers").getChildren();
-                for(DataSnapshot member : teamChilderen){
-                    User user = member.getValue(User.class);
-                    project.addTeamMembers(user);
-                }
+                database.child("project_members").child(project.getName()).orderByKey().equalTo(FirebaseAuth.getInstance().getCurrentUser().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        if(dataSnapshot.exists()){
+                            if(dataSnapshot.child(user.getUserId()).child("role").getValue().equals("analysist")){
+                                project.setEditable(true);
+                                view.addProject(project, true);
+                            }else{
+                                project.setEditable(false);
+                                view.addProject(project, false);
+                            }
+                        }
+                    }
 
-                User analyst = dataSnapshot.child("analyst").getValue(User.class);
-                project.setAnalyst(analyst);*/
-
-                view.addProject(project);
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                        Log.d("OUTPUT", "onCancelled in de callback: " + databaseError.getMessage());
+                    }
+                });
             }
 
             @Override
             public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-
+                
             }
 
             @Override
@@ -69,7 +80,7 @@ public class ProjectActivityPresenter extends BasePresenter{
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-
+                Log.d("OUTPUT", "onCancelled: " + databaseError.getMessage());
             }
         });
     }

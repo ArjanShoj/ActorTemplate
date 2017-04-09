@@ -6,6 +6,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -15,6 +17,7 @@ import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import nl.hu_team.actortemplate.R;
 import nl.hu_team.actortemplate.adapter.ProjectAdapter;
 import nl.hu_team.actortemplate.model.Project;
@@ -23,6 +26,7 @@ import nl.hu_team.actortemplate.presenter.ProjectActivityPresenter;
 public class ProjectActivity extends AppCompatActivity implements ProjectActivityPresenter.ProjectActivityView{
 
     @BindView(R.id.project_list) protected RecyclerView projectList;
+    @BindView(R.id.project_layout) protected RelativeLayout projectLayout;
     private ProjectAdapter projectAdapter;
 
     private ProjectActivityPresenter presenter;
@@ -33,15 +37,11 @@ public class ProjectActivity extends AppCompatActivity implements ProjectActivit
         setContentView(R.layout.activity_project);
         ButterKnife.bind(this);
 
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         presenter = new ProjectActivityPresenter(this);
 
-        if(presenter.checkUser(FirebaseAuth.getInstance().getCurrentUser())){
-            this.toLoginActivity();
-        }
-
         initProjects();
-        testProjects();
-        //generateProjects();
+        generateProjects();
     }
 
     @Override
@@ -51,9 +51,17 @@ public class ProjectActivity extends AppCompatActivity implements ProjectActivit
         finish();
     }
 
+    @OnClick(R.id.add_project_button) protected void toAddProjectActivity(){
+        startActivity(new Intent(this, AddProjectActivity.class));
+    }
+
     @Override
-    public void addProject(Project project) {
-        projectAdapter.addProject(project);
+    public void addProject(Project project, boolean analysist) {
+        if(analysist){
+            projectAdapter.addProjectWithButton(project);
+        }else{
+            projectAdapter.addProject(project);
+        }
     }
 
     private void initProjects() {
@@ -63,9 +71,6 @@ public class ProjectActivity extends AppCompatActivity implements ProjectActivit
 
     }
 
-    private void testProjects(){
-
-    }
 
     private void generateProjects(){
         presenter.setProjects();
