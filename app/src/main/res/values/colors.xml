@@ -2,10 +2,11 @@
 <resources>
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorAccent">#5e76d6</color>
 
     <color name="colorSecondary">#FF9800</color>
     <color name="colorSecondaryDark">#EF6C00</color>
+    <color name="colorSecondaryAccent">#FF4081</color>
 
     <color name="colorActionbar">#234F32</color>
     <color name="colorActionbarDark">#092E20</color>

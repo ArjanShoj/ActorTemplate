@@ -1,6 +1,9 @@
 <resources>
     <string name="app_name">Actor Template</string>
     <string name="action_settings">Settings</string>
+    <string name="facebook_app_id">2067499450143481</string>
+
+    <!-- labels -->
 
     <string name="label.signin.google">Google Sign In</string>
     <string name="label.signin.facebook">Facebook Sign In</string>
@@ -9,20 +12,58 @@
     <string name="label.signin.email">E-mail</string>
     <string name="label.signin.password">Password</string>
     <string name="label.signin.login">Sign In</string>
-    <string name="label.signin.signup"><u>Don\'t have an account yet? Sign in here.</u></string>
+    <string name="label.signin.signup"><u>Don\'t have an account yet? Click here.</u></string>
 
     <string name="label.signup.email">Type your e-mail</string>
     <string name="label.signup.password">Choose a password</string>
     <string name="label.signup.password.confirm">Confirm your password</string>
-    <string name="label.signup.button">Sign Up</string>
+    <string name="label.signup.button">Register</string>
+
+    <string name="label.project.input.name">Input project name</string>
+    <string name="label.project.input.summary">Input project summary</string>
+    <string name="label.project.input.button">Add Project</string>
+
+    <string name="label.profile.button.logout">Log Out</string>
+
+    <string name="label.detail.project.name">Project Name</string>
+    <string name="label.detail.project.summary">Project Summary</string>
+
+    <string name="label.template.input.name">Actor</string>
+    <string name="label.template.input.description">Description</string>
+    <string name="label.template.button.submit">Submit</string>
+
+    <string name="label.actor.input.name">Name</string>
+    <string name="label.actor.input.function">Function</string>
+    <string name="label.actor.input.email">E-mail</string>
+    <string name="label.actor.input.phone">Phone</string>
+    <string name="label.actor.input.note">Note</string>
+
+    <!-- placeholders -->
 
     <string name="placeholder.card.project.name">Project name</string>
     <string name="placeholder.card.project.summary">Project summary</string>
     <string name="placeholder.profile.name">Arjan Shojaeian</string>
     <string name="title_activity_main">MainActivity</string>
 
+    <string name="placeholder.card.actor.name">Name: Arjan Shojaeian</string>
+    <string name="placeholder.card.actor.funcion">Function: CEO</string>
+    <string name="placeholder.card.actor.email">E-mail: arjan.shojaeian@gmail.com</string>
+    <string name="placeholder.card.actor.note">Note: He is perfect for the job.</string>
+
+    <string name="placeholder.detail.actortemplate.name">Actor: Receptionist</string>
+    <string name="placeholder.detail.actortemplate.description">Beschrijving: Front Office medewerker die binnenkomende personen dient te begroeten, hun vragen te inventariseren en hun wegwijs te maken in het gebouw.</string>
+
+    <!-- errors -->
+
     <string name="error.signup.empty">One of the fields are empty.</string>
     <string name="error.signup.password.confirm">Password doesn\'t match with eachother.</string>
     <string name="error.signin.login.fail">Email and password doesn\'t match.</string>
-    
+    <string name="title_activity_test">TestActivity</string>
+
+    <string name="error.overal.empty">This is a required field.</string>
+    <string name="title_activity_testing">TestingActivity</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
 </resources>
