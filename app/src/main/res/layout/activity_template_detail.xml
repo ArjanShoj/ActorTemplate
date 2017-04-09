@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/templateDetailActivity"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="5dp"
+    android:padding="5dp"
+    tools:context="nl.hu_team.actortemplate.activity.TemplateDetailActivity"
+    android:background="@color/first_project_card"
+    >
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/archive_actor_template"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_margin="@dimen/fab_margin"
+        app:srcCompat="@android:drawable/stat_sys_upload"
+        />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/add_actor_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="@dimen/fab_margin"
+        app:srcCompat="@android:drawable/ic_input_add"
+        />
+
+    <TextView
+        android:id="@+id/detail_actortemplate_project_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/placeholder.card.project.name"
+        style="@style/Base.TextAppearance.AppCompat.Large"
+        android:textColor="@color/white"
+        />
+
+    <TextView
+        android:id="@+id/detail_actortemplate_project_summary"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/placeholder.card.project.summary"
+        android:layout_below="@id/detail_actortemplate_project_name"
+        style="@style/Base.TextAppearance.AppCompat.Medium"
+        android:textColor="@color/white"
+        />
+
+    <LinearLayout
+        android:id="@+id/detail_template_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="@color/white"
+        android:layout_below="@id/detail_actortemplate_project_summary"
+        >
+
+        <ImageView
+            android:id="@+id/detail_actortemplate_photo"
+            android:background="@drawable/profile_circular_border_imageview"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_margin="10dp"
+            android:layout_gravity="center_horizontal"
+            android:elevation="5dp"
+            android:padding="20dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/profile"
+            />
+        
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            >
+            <TextView
+                android:id="@+id/detail_actortemplate_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/Base.TextAppearance.AppCompat.Medium"
+                android:text="@string/placeholder.detail.actortemplate.name"
+                />
+
+            <TextView
+                android:id="@+id/detail_actortemplate_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/placeholder.detail.actortemplate.description"
+                />
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/detail_actor_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/detail_template_container"
+        android:layout_margin="15dp"
+        />
+
+</RelativeLayout>

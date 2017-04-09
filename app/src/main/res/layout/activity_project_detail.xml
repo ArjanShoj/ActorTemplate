@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/projectDetailActivity"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="10dp"
+    android:padding="10dp"
+    tools:context="nl.hu_team.actortemplate.activity.ProjectDetailActivity"
+    android:background="@color/first_project_card"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/detail_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/label.detail.project.name"
+        android:textColor="@color/white"
+        style="@style/Base.TextAppearance.AppCompat.Large"
+        />
+
+    <TextView
+        android:id="@+id/detail_summary"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/label.detail.project.summary"
+        android:textColor="@color/white"
+        style="@style/Base.TextAppearance.AppCompat.Medium"
+
+        android:layout_below="@id/detail_name"
+        />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/detail_actortemplates"
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+
+        android:layout_below="@id/detail_summary"
+        />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/add_actortemplate_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@android:drawable/ic_input_add"
+        android:layout_margin="@dimen/fab_margin"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        />
+
+</RelativeLayout>
