@@ -23,7 +23,7 @@ import nl.hu_team.actortemplate.adapter.ProjectAdapter;
 import nl.hu_team.actortemplate.model.Project;
 import nl.hu_team.actortemplate.presenter.ProjectActivityPresenter;
 
-public class ProjectActivity extends AppCompatActivity implements ProjectActivityPresenter.ProjectActivityView{
+public class ProjectActivity extends BaseActivity implements ProjectActivityPresenter.ProjectActivityView{
 
     @BindView(R.id.project_list) protected RecyclerView projectList;
     @BindView(R.id.project_layout) protected RelativeLayout projectLayout;

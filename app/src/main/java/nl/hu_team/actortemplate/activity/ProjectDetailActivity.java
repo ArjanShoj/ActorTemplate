@@ -22,7 +22,7 @@ import nl.hu_team.actortemplate.model.Project;
 import nl.hu_team.actortemplate.presenter.ProjectActivityPresenter;
 import nl.hu_team.actortemplate.presenter.ProjectDetailActivityPresenter;
 
-public class ProjectDetailActivity extends AppCompatActivity implements ProjectDetailActivityPresenter.ProjectDetailView{
+public class ProjectDetailActivity extends BaseActivity implements ProjectDetailActivityPresenter.ProjectDetailView{
 
     private ProjectDetailActivityPresenter presenter;
     private Project project;

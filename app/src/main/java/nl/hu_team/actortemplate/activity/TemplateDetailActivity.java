@@ -20,7 +20,7 @@ import nl.hu_team.actortemplate.model.ActorTemplate;
 import nl.hu_team.actortemplate.model.Project;
 import nl.hu_team.actortemplate.presenter.TemplateDetailActivityPresenter;
 
-public class TemplateDetailActivity extends AppCompatActivity implements TemplateDetailActivityPresenter.TemplateDetailView{
+public class TemplateDetailActivity extends BaseActivity implements TemplateDetailActivityPresenter.TemplateDetailView{
 
     private TemplateDetailActivityPresenter presenter;
 

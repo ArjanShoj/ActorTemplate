@@ -18,7 +18,7 @@ import nl.hu_team.actortemplate.model.ActorTemplate;
 import nl.hu_team.actortemplate.model.Project;
 import nl.hu_team.actortemplate.presenter.ActorActivityPresenter;
 
-public class ActorActivity extends AppCompatActivity {
+public class ActorActivity extends BaseActivity {
 
     @BindView(R.id.actorActivityRoot) protected LinearLayout activityRoot;
 
@@ -78,6 +78,11 @@ public class ActorActivity extends AppCompatActivity {
         }
 
         return result;
+    }
+
+    @OnClick(R.id.actor_photo)
+    public void takePicture(){
+        
     }
 
     @OnClick(R.id.submit_actor)

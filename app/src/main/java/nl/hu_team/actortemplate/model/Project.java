@@ -66,5 +66,4 @@ public class Project implements Serializable{
     public int getCardColor() {
         return cardColor;
     }
-
 }

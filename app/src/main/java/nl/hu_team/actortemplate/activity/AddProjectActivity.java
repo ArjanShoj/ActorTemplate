@@ -15,7 +15,7 @@ import butterknife.OnClick;
 import nl.hu_team.actortemplate.R;
 import nl.hu_team.actortemplate.presenter.AddProjectActivityPresenter;
 
-public class AddProjectActivity extends AppCompatActivity implements AddProjectActivityPresenter.AddProjectView{
+public class AddProjectActivity extends BaseActivity implements AddProjectActivityPresenter.AddProjectView{
 
     private AddProjectActivityPresenter presenter;
 

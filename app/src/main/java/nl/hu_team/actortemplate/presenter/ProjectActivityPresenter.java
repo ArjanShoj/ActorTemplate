@@ -42,7 +42,7 @@ public class ProjectActivityPresenter extends BasePresenter{
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 final Project project = dataSnapshot.getValue(Project.class);
 
-                database.child("project_members").child(project.getName()).orderByKey().equalTo(FirebaseAuth.getInstance().getCurrentUser().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+                database.child("project_members").child(dataSnapshot.getKey()).orderByKey().equalTo(FirebaseAuth.getInstance().getCurrentUser().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         if(dataSnapshot.exists()){
@@ -65,7 +65,7 @@ public class ProjectActivityPresenter extends BasePresenter{
 
             @Override
             public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-                
+
             }
 
             @Override
