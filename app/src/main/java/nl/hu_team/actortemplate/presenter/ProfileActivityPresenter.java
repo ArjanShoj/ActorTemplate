@@ -2,7 +2,7 @@ package nl.hu_team.actortemplate.presenter;
 
 import nl.hu_team.actortemplate.activity.ProfileActivity;
 
-public class ProfileActivityPresenter {
+public class ProfileActivityPresenter extends BasePresenter{
 
     private final ProfileActivity view;
 
