@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/addTemplateActivityRoot"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="10dp"
+    android:padding="10dp"
+    tools:context="nl.hu_team.actortemplate.activity.TemplateActivity"
+    android:background="@color/first_project_card"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/template_project_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/label.detail.project.name"
+        android:textColor="@color/white"
+        style="@style/Base.TextAppearance.AppCompat.Large"
+        />
+
+    <TextView
+        android:id="@+id/template_project_summary"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/label.detail.project.summary"
+        android:textColor="@color/white"
+        style="@style/Base.TextAppearance.AppCompat.Medium"
+
+        android:layout_below="@id/template_project_name"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:layout_marginBottom="@dimen/activity_vertical_margin"
+        android:orientation="vertical"
+        android:layout_below="@id/template_project_summary"
+        android:background="@color/white"
+        >
+
+        <ImageButton
+            android:id="@+id/template_photo"
+            android:background="@drawable/profile_circular_border_imageview"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_margin="10dp"
+            android:elevation="5dp"
+            android:padding="20dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/profile"
+            />
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <android.support.v7.widget.AppCompatEditText
+                android:id="@+id/template_input_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/label.template.input.name"
+                />
+
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <android.support.v7.widget.AppCompatEditText
+                android:id="@+id/template_input_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/label.template.input.description"
+                />
+        </android.support.design.widget.TextInputLayout>
+
+    </LinearLayout>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/submit_template"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_margin="@dimen/fab_margin"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        app:srcCompat="@android:drawable/ic_menu_save"
+        />
+
+</RelativeLayout>
