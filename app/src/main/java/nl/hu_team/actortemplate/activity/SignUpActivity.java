@@ -5,6 +5,7 @@ import android.support.annotation.StringRes;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.widget.EditText;
 
 import butterknife.BindView;
@@ -31,6 +32,11 @@ public class SignUpActivity extends AppCompatActivity implements SignUpActivityP
     }
 
     @OnClick(R.id.signup_button) public void signUp(){
+
+        if(!validateForm()){
+           return;
+        }
+
         String email = inputEmail.getText().toString();
         String password = inputPassword.getText().toString();
         String passwordConfirm = inputPasswordConfirm.getText().toString();
@@ -39,15 +45,50 @@ public class SignUpActivity extends AppCompatActivity implements SignUpActivityP
         password = password.trim();
         passwordConfirm = passwordConfirm.trim();
 
-        if(email.isEmpty() || password.isEmpty() || passwordConfirm.isEmpty()){
-            showError(R.string.error_signup_empty, "Error");
-        }else{
-            if(!password.equals(passwordConfirm) || !password.matches(passwordConfirm)){
-                showError(R.string.error_signup_password_confirm, "Password");
-            }else {
-                presenter.createUserWithEmail(email, password);
-            }
+        if(this.validatePasswordConfirm(password, passwordConfirm)){
+            presenter.createUserWithEmail(email, password);
         }
+    }
+
+    private boolean validatePasswordConfirm(String password1, String password2){
+        boolean result = true;
+
+        if(!password1.matches(password2) && !password2.matches(password1)){
+            result = false;
+            inputPasswordConfirm.setError("Password doesn't match.");
+        }else{
+            inputPasswordConfirm.setError(null);
+        }
+
+        return  result;
+    }
+
+    private boolean validateForm(){
+        boolean result = true;
+
+        if(TextUtils.isEmpty(inputEmail.getText().toString())){
+            inputEmail.setError("Required");
+            result = false;
+        }else{
+            inputEmail.setError(null);
+        }
+
+        if(TextUtils.isEmpty(inputPassword.getText().toString())){
+            inputPassword.setError("Required");
+            result = false;
+        }else{
+            inputPassword.setError(null);
+        }
+
+        if(TextUtils.isEmpty(inputPasswordConfirm.getText().toString())){
+            inputPasswordConfirm.setError("Required");
+            result = false;
+        }else{
+            inputPasswordConfirm.setError(null);
+        }
+
+        return result;
+
     }
 
     @Override
