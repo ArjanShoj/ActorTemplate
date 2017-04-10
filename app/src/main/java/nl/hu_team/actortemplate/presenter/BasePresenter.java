@@ -1,6 +1,9 @@
 package nl.hu_team.actortemplate.presenter;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.support.annotation.StringRes;
+import android.util.Base64;
 import android.util.Log;
 
 import com.google.firebase.auth.FirebaseUser;
@@ -8,6 +11,9 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 
 import nl.hu_team.actortemplate.model.ActorTemplate;
 import nl.hu_team.actortemplate.model.Project;
@@ -41,6 +47,17 @@ public abstract class BasePresenter {
 
     private String usernameFromEmail(String email) {
         return email.contains("@") ? email.split("@")[0] : email;
+    }
+
+    public String encodeBitmap(Bitmap bitmap) {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);
+        return Base64.encodeToString(baos.toByteArray(), Base64.DEFAULT);
+    }
+
+    public Bitmap decodeFromBase64(String image) throws IOException {
+        byte[] decodedByteArray = android.util.Base64.decode(image, Base64.DEFAULT);
+        return BitmapFactory.decodeByteArray(decodedByteArray, 0, decodedByteArray.length);
     }
 
     public String getActorKey(Project project){
