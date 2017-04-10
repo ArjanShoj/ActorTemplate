@@ -70,6 +70,11 @@ public class ProjectAdapter extends RecyclerView.Adapter<ProjectAdapter.ProjectV
         }
     }
 
+    public void removeProject(Project project){
+        this.data.remove(project);
+        notifyDataSetChanged();
+    }
+
     public void replaceData(ArrayList<Project> newData){
         this.data = newData;
         this.notifyDataSetChanged();

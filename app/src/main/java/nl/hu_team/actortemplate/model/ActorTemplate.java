@@ -10,6 +10,7 @@ public class ActorTemplate implements Serializable{
     private String description;
     private boolean archive;
 
+    @Exclude private String templateId;
     @Exclude private Actor actor;
 
     public ActorTemplate(String name, String description){
@@ -41,7 +42,7 @@ public class ActorTemplate implements Serializable{
 
     //getters
 
-    public boolean isArchive(){
+    public boolean isArchived(){
         return this.archive;
     }
 
@@ -57,4 +58,11 @@ public class ActorTemplate implements Serializable{
         return this.actor;
     }
 
+    public String getTemplateId() {
+        return templateId;
+    }
+
+    public void setTemplateId(String templateId) {
+        this.templateId = templateId;
+    }
 }

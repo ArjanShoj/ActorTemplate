@@ -14,7 +14,7 @@ import butterknife.OnClick;
 import nl.hu_team.actortemplate.R;
 import nl.hu_team.actortemplate.presenter.SignUpActivityPresenter;
 
-public class SignUpActivity extends AppCompatActivity implements SignUpActivityPresenter.SignUpActivityView{
+public class SignUpActivity extends BaseActivity implements SignUpActivityPresenter.SignUpActivityView{
 
     private SignUpActivityPresenter presenter;
 

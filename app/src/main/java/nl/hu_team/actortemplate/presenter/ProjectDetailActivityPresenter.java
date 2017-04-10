@@ -28,26 +28,28 @@ public class ProjectDetailActivityPresenter extends BasePresenter {
     public interface ProjectDetailView {
 
         void addTemplateToAdapter(ActorTemplate actorTemplate);
+        void removeTemplateFromAdapter(ActorTemplate actorTemplate);
 
     }
 
     public void setActorTemplates(){
-        database.child("projects").child(project.getName()).child("actor_templates").addChildEventListener(new ChildEventListener() {
+        database.child("projects").child(project.getProjectId()).child("actor_templates").addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 ActorTemplate actorTemplate = dataSnapshot.getValue(ActorTemplate.class);
-                Log.d("OUTPUT", "onChildAdded: TOEGEVOEGD " + actorTemplate.getName());
-                view.addTemplateToAdapter(actorTemplate);
+                if(!actorTemplate.isArchived()){
+                    view.addTemplateToAdapter(actorTemplate);
+                }
             }
 
             @Override
             public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-
             }
 
             @Override
             public void onChildRemoved(DataSnapshot dataSnapshot) {
-
+                ActorTemplate actorTemplate = dataSnapshot.getValue(ActorTemplate.class);
+                view.removeTemplateFromAdapter(actorTemplate);
             }
 
             @Override

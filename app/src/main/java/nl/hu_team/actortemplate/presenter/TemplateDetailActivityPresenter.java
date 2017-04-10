@@ -29,10 +29,18 @@ public class TemplateDetailActivityPresenter extends BasePresenter {
 
     public interface TemplateDetailView {
         void addActorToAdapter(Actor actor);
+        void removeActorFromAdapter(Actor actor);
+    }
+
+    public void archiveTemplate(){
+        project.getActorTemplate().setArchive(true);
+        databaseReference.child("projects").child(project.getProjectId()).child("actor_templates").child(project.getActorTemplate().getTemplateId()).child("archive").setValue(true);
+
+        view.finish();
     }
 
     public void setActors(){
-        databaseReference.child("projects").child(project.getName()).child("actor_templates").child(project.getActorTemplate().getName()).child("actors").addChildEventListener(new ChildEventListener() {
+        databaseReference.child("projects").child(project.getProjectId()).child("actor_templates").child(project.getActorTemplate().getTemplateId()).child("actors").addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 Actor actor = dataSnapshot.getValue(Actor.class);
@@ -46,6 +54,8 @@ public class TemplateDetailActivityPresenter extends BasePresenter {
 
             @Override
             public void onChildRemoved(DataSnapshot dataSnapshot) {
+                Actor actor = dataSnapshot.getValue(Actor.class);
+                view.removeActorFromAdapter(actor);
 
             }
 

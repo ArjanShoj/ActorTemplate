@@ -9,7 +9,7 @@ import butterknife.OnClick;
 import nl.hu_team.actortemplate.R;
 import nl.hu_team.actortemplate.presenter.ProfileActivityPresenter;
 
-public class ProfileActivity extends BaseActivity implements ProfileActivityPresenter.ProfileActivityView{
+public class ProfileActivity extends AfterSignedInBaseActivity implements ProfileActivityPresenter.ProfileActivityView{
 
     private static final int GALlERY_INTENT = 2;
     private ProfileActivityPresenter presenter;

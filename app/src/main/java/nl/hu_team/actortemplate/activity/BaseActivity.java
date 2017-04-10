@@ -12,28 +12,4 @@ import nl.hu_team.actortemplate.R;
 public abstract class BaseActivity extends AppCompatActivity {
 
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-
-        switch(item.getItemId()){
-            case android.R.id.home:
-                finish();
-                return true;
-
-            case R.id.logoutUser:
-                FirebaseAuth.getInstance().signOut();
-                finishAffinity();
-                startActivity(new Intent(this, LoginActivity.class));
-
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }
-
 }

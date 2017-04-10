@@ -1,14 +1,21 @@
 package nl.hu_team.actortemplate.activity;
 
 import android.content.Intent;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -20,7 +27,7 @@ import nl.hu_team.actortemplate.model.ActorTemplate;
 import nl.hu_team.actortemplate.model.Project;
 import nl.hu_team.actortemplate.presenter.TemplateDetailActivityPresenter;
 
-public class TemplateDetailActivity extends BaseActivity implements TemplateDetailActivityPresenter.TemplateDetailView{
+public class TemplateDetailActivity extends AfterSignedInBaseActivity implements TemplateDetailActivityPresenter.TemplateDetailView{
 
     private TemplateDetailActivityPresenter presenter;
 
@@ -28,6 +35,9 @@ public class TemplateDetailActivity extends BaseActivity implements TemplateDeta
 
     @BindView(R.id.detail_actortemplate_project_name) protected TextView projectName;
     @BindView(R.id.detail_actortemplate_project_summary) protected TextView projectSummary;
+
+    @BindView(R.id.add_actor_button) protected FloatingActionButton addActorButton;
+    @BindView(R.id.archive_actor_template) protected FloatingActionButton archiveTemplateButton;
 
     @BindView(R.id.detail_actortemplate_name) protected TextView templateName;
     @BindView(R.id.detail_actortemplate_description) protected TextView templateDescription;
@@ -49,21 +59,45 @@ public class TemplateDetailActivity extends BaseActivity implements TemplateDeta
             finish();
         }
 
-        presenter = new TemplateDetailActivityPresenter(this, project);
+        FirebaseDatabase.getInstance().getReference().child("projects")
+                .child(project.getProjectId())
+                .child("actor_templates")
+                .orderByChild("name")
+                .equalTo(project.getActorTemplate().getName())
+                .limitToFirst(1).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot child : dataSnapshot.getChildren()) {
+                    Log.d("OUTPUT", "onDataChange: " + child.getKey());
+                    project.getActorTemplate().setTemplateId(child.getKey());
+                }
+                presenter = new TemplateDetailActivityPresenter(TemplateDetailActivity.this, project);
 
-        activityRoot.setBackgroundColor(getColor(project.getCardColor()));
+                activityRoot.setBackgroundColor(getColor(project.getCardColor()));
 
-        setProjectDetails();
-        setTemplateDetails();
+                setProjectDetails();
+                setTemplateDetails();
 
-        initActors();
-        setActors();
+                initActors();
+                setActors();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 
     public void initActors(){
         actorAdapter = new ActorAdapter(this, project);
         actorList.setLayoutManager(new LinearLayoutManager(this));
         actorList.setAdapter(actorAdapter);
+    }
+
+    @OnClick(R.id.archive_actor_template)
+    public void archiveTemplate(){
+        presenter.archiveTemplate();
     }
 
     @OnClick(R.id.add_actor_button)
@@ -76,9 +110,11 @@ public class TemplateDetailActivity extends BaseActivity implements TemplateDeta
 
     @OnClick(R.id.detail_template_container)
     public void editTemplate(){
-        Intent intent = new Intent(this, TemplateActivity.class);
-        intent.putExtra("project", project);
-        startActivity(intent);
+        if(project.isEditable()){
+            Intent intent = new Intent(this, TemplateActivity.class);
+            intent.putExtra("project", project);
+            startActivity(intent);
+        }
     }
 
     @Override
@@ -86,9 +122,19 @@ public class TemplateDetailActivity extends BaseActivity implements TemplateDeta
         this.actorAdapter.addActor(actor);
     }
 
+    @Override
+    public void removeActorFromAdapter(Actor actor) {
+        actorAdapter.removeActor(actor);
+    }
+
     private void setProjectDetails(){
         projectName.setText(project.getName());
         projectSummary.setText(project.getSummary());
+
+        if(!project.isEditable()){
+            addActorButton.setVisibility(View.GONE);
+            archiveTemplateButton.setVisibility(View.GONE);
+        }
     }
 
     private void setTemplateDetails(){
