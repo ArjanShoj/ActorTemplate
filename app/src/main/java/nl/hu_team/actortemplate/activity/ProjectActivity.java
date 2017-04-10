@@ -23,7 +23,7 @@ import nl.hu_team.actortemplate.adapter.ProjectAdapter;
 import nl.hu_team.actortemplate.model.Project;
 import nl.hu_team.actortemplate.presenter.ProjectActivityPresenter;
 
-public class ProjectActivity extends BaseActivity implements ProjectActivityPresenter.ProjectActivityView{
+public class ProjectActivity extends AfterSignedInBaseActivity implements ProjectActivityPresenter.ProjectActivityView{
 
     @BindView(R.id.project_list) protected RecyclerView projectList;
     @BindView(R.id.project_layout) protected RelativeLayout projectLayout;
@@ -62,6 +62,11 @@ public class ProjectActivity extends BaseActivity implements ProjectActivityPres
         }else{
             projectAdapter.addProject(project);
         }
+    }
+
+    @Override
+    public void removeProject(Project project) {
+        projectAdapter.removeProject(project);
     }
 
     private void initProjects() {

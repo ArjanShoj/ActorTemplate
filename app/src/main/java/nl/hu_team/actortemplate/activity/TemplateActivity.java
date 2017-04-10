@@ -22,7 +22,7 @@ import nl.hu_team.actortemplate.model.ActorTemplate;
 import nl.hu_team.actortemplate.model.Project;
 import nl.hu_team.actortemplate.presenter.TemplateActivityPresenter;
 
-public class TemplateActivity extends BaseActivity {
+public class TemplateActivity extends AfterSignedInBaseActivity {
 
     @BindView(R.id.addTemplateActivityRoot) protected RelativeLayout activityRoot;
 
@@ -34,6 +34,8 @@ public class TemplateActivity extends BaseActivity {
 
     private TemplateActivityPresenter presenter;
     private Project project;
+
+    private boolean newTemplate = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +56,7 @@ public class TemplateActivity extends BaseActivity {
         setUpProjectDetails();
         if(project.getActorTemplate() != null){
             fillTemplateDetails();
+            newTemplate = false;
         }
     }
 
@@ -66,7 +69,8 @@ public class TemplateActivity extends BaseActivity {
             String description = inputDescription.getText().toString();
 
             ActorTemplate actorTemplate = new ActorTemplate(name, description);
-            presenter.submitTemplate(actorTemplate);
+            presenter.submitTemplate(actorTemplate, newTemplate);
+            finish();
         }
     }
 

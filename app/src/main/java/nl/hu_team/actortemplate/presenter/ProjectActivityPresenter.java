@@ -34,6 +34,7 @@ public class ProjectActivityPresenter extends BasePresenter{
     public interface ProjectActivityView {
         void toLoginActivity();
         void addProject(Project project, boolean analysist);
+        void removeProject(Project project);
     }
 
     public void setProjects(){
@@ -41,7 +42,6 @@ public class ProjectActivityPresenter extends BasePresenter{
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 final Project project = dataSnapshot.getValue(Project.class);
-
                 database.child("project_members").child(dataSnapshot.getKey()).orderByKey().equalTo(FirebaseAuth.getInstance().getCurrentUser().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
@@ -70,7 +70,8 @@ public class ProjectActivityPresenter extends BasePresenter{
 
             @Override
             public void onChildRemoved(DataSnapshot dataSnapshot) {
-
+                Project project = dataSnapshot.getValue(Project.class);
+                view.removeProject(project);
             }
 
             @Override

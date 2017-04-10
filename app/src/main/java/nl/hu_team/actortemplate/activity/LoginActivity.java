@@ -22,7 +22,7 @@ import butterknife.OnClick;
 import nl.hu_team.actortemplate.R;
 import nl.hu_team.actortemplate.presenter.LoginActivityPresenter;
 
-public class LoginActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener, LoginActivityPresenter.LoginActivityView{
+public class LoginActivity extends BaseActivity implements GoogleApiClient.OnConnectionFailedListener, LoginActivityPresenter.LoginActivityView{
 
     private static final String TAG = "OUTPUT";
     private static final int RC_SIGN_IN = 9001;

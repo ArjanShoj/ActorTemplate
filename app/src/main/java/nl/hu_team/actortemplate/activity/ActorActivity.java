@@ -18,7 +18,7 @@ import nl.hu_team.actortemplate.model.ActorTemplate;
 import nl.hu_team.actortemplate.model.Project;
 import nl.hu_team.actortemplate.presenter.ActorActivityPresenter;
 
-public class ActorActivity extends BaseActivity {
+public class ActorActivity extends AfterSignedInBaseActivity {
 
     @BindView(R.id.actorActivityRoot) protected LinearLayout activityRoot;
 
@@ -37,6 +37,8 @@ public class ActorActivity extends BaseActivity {
 
     private Project project;
 
+    private boolean newActor = true;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,7 +47,6 @@ public class ActorActivity extends BaseActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         project = (Project) getIntent().getSerializableExtra("project");
-
         if(project == null || project.getActorTemplate() == null){
             finish();
         }
@@ -55,6 +56,7 @@ public class ActorActivity extends BaseActivity {
 
         if(project.getActorTemplate().getActor() != null){
             setActorDetails(project.getActorTemplate().getActor());
+            newActor = false;
         }
 
         setProjectDetails();
@@ -82,7 +84,7 @@ public class ActorActivity extends BaseActivity {
 
     @OnClick(R.id.actor_photo)
     public void takePicture(){
-        
+
     }
 
     @OnClick(R.id.submit_actor)
@@ -101,7 +103,7 @@ public class ActorActivity extends BaseActivity {
             actor.setPhone(phone);
             actor.setNote(note);
 
-            presenter.submitActor(actor);
+            presenter.submitActor(actor, newActor);
 
             finish();
         }

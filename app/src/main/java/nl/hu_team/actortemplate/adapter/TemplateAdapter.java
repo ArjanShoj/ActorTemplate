@@ -64,6 +64,11 @@ public class TemplateAdapter extends RecyclerView.Adapter<TemplateAdapter.Templa
 
     }
 
+    public void removeTemplate(ActorTemplate actorTemplate){
+        this.data.remove(actorTemplate);
+        notifyDataSetChanged();
+    }
+
     public void addTemplate(ActorTemplate actorTemplate){
         data.add(actorTemplate);
         this.notifyDataSetChanged();

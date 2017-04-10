@@ -1,7 +1,10 @@
 package nl.hu_team.actortemplate.presenter;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import nl.hu_team.actortemplate.activity.ActorActivity;
 import nl.hu_team.actortemplate.model.Actor;
@@ -23,7 +26,28 @@ public class ActorActivityPresenter extends BasePresenter {
 
     }
 
-    public void submitActor(Actor actor){
-        databaseReference.child("projects").child(project.getName()).child("actor_templates").child(project.getActorTemplate().getName()).child("actors").child(actor.getName()).setValue(actor);
+    public void submitActor(final Actor actor, boolean newActor){
+        if(newActor){
+            databaseReference.child("projects").child(project.getProjectId()).child("actor_templates").child(project.getActorTemplate().getTemplateId()).child("actors").push().setValue(actor);
+        }else{
+            databaseReference.child("projects").child(project.getProjectId()).child("actor_templates").child(project.getActorTemplate().getTemplateId()).child("actors")
+                    .orderByChild("name").equalTo(actor.getName()).limitToFirst(1).addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    for(DataSnapshot child : dataSnapshot.getChildren()){
+                        actor.setActorId(child.getKey());
+                    }
+                    databaseReference.child("projects").child(project.getProjectId()).child("actor_templates").child(project.getActorTemplate().getTemplateId()).child("actors").child(actor.getActorId()).setValue(actor);
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
+
+
+        }
+
     }
 }

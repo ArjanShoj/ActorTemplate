@@ -64,6 +64,11 @@ public class ActorAdapter extends RecyclerView.Adapter<ActorAdapter.ActorViewHol
         });
     }
 
+    public void removeActor(Actor actor){
+        this.data.remove(actor);
+        notifyDataSetChanged();
+    }
+
     @Override
     public int getItemCount() {
         return this.data == null || this.data.isEmpty() ? 0 : this.data.size();

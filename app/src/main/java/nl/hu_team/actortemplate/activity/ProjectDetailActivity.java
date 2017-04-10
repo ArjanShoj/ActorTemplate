@@ -12,6 +12,11 @@ import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -22,7 +27,7 @@ import nl.hu_team.actortemplate.model.Project;
 import nl.hu_team.actortemplate.presenter.ProjectActivityPresenter;
 import nl.hu_team.actortemplate.presenter.ProjectDetailActivityPresenter;
 
-public class ProjectDetailActivity extends BaseActivity implements ProjectDetailActivityPresenter.ProjectDetailView{
+public class ProjectDetailActivity extends AfterSignedInBaseActivity implements ProjectDetailActivityPresenter.ProjectDetailView{
 
     private ProjectDetailActivityPresenter presenter;
     private Project project;
@@ -55,23 +60,36 @@ public class ProjectDetailActivity extends BaseActivity implements ProjectDetail
             addTemplateButton.setVisibility(View.GONE);
         }
 
-        activityRoot.setBackgroundColor(getColor(project.getCardColor()));
+        FirebaseDatabase.getInstance().getReference().child("projects").orderByChild("name").equalTo(project.getName()).limitToFirst(1).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
 
-        this.presenter = new ProjectDetailActivityPresenter(this, project);
+                for (DataSnapshot child : dataSnapshot.getChildren()) {
+                    project.setProjectId(child.getKey());
+                }
 
-        this.setUpProjectDetails();
-        this.initTemplates();
-        presenter.setActorTemplates();
+                activityRoot.setBackgroundColor(getColor(project.getCardColor()));
+
+                presenter = new ProjectDetailActivityPresenter(ProjectDetailActivity.this, project);
+
+                setUpProjectDetails();
+                initTemplates();
+                presenter.setActorTemplates();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.d("OUTPUT", "onCancelled: " + databaseError.getMessage());
+            }
+        });
     }
 
     @OnClick(R.id.add_actortemplate_button)
     public void addTemplateActivity(){
         Intent intent = new Intent(this, TemplateActivity.class);
-//        project.setActorTemplate(null);
         intent.putExtra("project", project);
         startActivity(intent);
     }
-
 
 
     private void setUpProjectDetails(){
@@ -94,6 +112,11 @@ public class ProjectDetailActivity extends BaseActivity implements ProjectDetail
     @Override
     public void addTemplateToAdapter(ActorTemplate actorTemplate) {
         templateAdapter.addTemplate(actorTemplate);
+    }
+
+    @Override
+    public void removeTemplateFromAdapter(ActorTemplate actorTemplate) {
+        templateAdapter.removeTemplate(actorTemplate);
     }
 
     private void initTemplates() {

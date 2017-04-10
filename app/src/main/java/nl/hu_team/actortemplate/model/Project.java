@@ -10,6 +10,7 @@ public class Project implements Serializable{
     private String name;
     private String summary;
 
+    @Exclude private String projectId;
     @Exclude private ActorTemplate actorTemplate;
     @Exclude private boolean editable;
     @Exclude private int cardColor;
@@ -45,6 +46,10 @@ public class Project implements Serializable{
         this.cardColor = cardColor;
     }
 
+    public void setProjectId(String projectId) {
+        this.projectId = projectId;
+    }
+
     //getters
 
     public ActorTemplate getActorTemplate(){
@@ -65,5 +70,9 @@ public class Project implements Serializable{
 
     public int getCardColor() {
         return cardColor;
+    }
+
+    public String getProjectId() {
+        return projectId;
     }
 }

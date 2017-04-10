@@ -1,5 +1,7 @@
 package nl.hu_team.actortemplate.model;
 
+import com.google.firebase.database.Exclude;
+
 import java.io.Serializable;
 
 public class Actor implements Serializable{
@@ -10,6 +12,8 @@ public class Actor implements Serializable{
     private String phone;
     private String note;
     private String profilePhoto;
+
+    @Exclude private String actorId;
 
     public Actor(){
 
@@ -70,5 +74,13 @@ public class Actor implements Serializable{
 
     public void setProfilePhoto(String profilePhoto) {
         this.profilePhoto = profilePhoto;
+    }
+
+    public String getActorId() {
+        return actorId;
+    }
+
+    public void setActorId(String actorId) {
+        this.actorId = actorId;
     }
 }
