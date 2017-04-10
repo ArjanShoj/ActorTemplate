@@ -1,5 +1,7 @@
 package nl.hu_team.actortemplate.presenter;
 
+import android.graphics.Bitmap;
+import android.util.Base64;
 import android.util.Log;
 
 import com.google.firebase.database.DataSnapshot;
@@ -7,6 +9,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
+import java.io.ByteArrayOutputStream;
 
 import nl.hu_team.actortemplate.activity.TemplateActivity;
 import nl.hu_team.actortemplate.model.ActorTemplate;
@@ -27,7 +31,8 @@ public class TemplateActivityPresenter extends BasePresenter {
     public interface AddTemplateView{
     }
 
-    public void submitTemplate(final ActorTemplate actorTemplate, boolean newTemplate){
+
+    public void submitTemplate(final ActorTemplate actorTemplate, boolean newTemplate, String imageCode){
         if(newTemplate){
             databaseReference.child("projects").child(project.getProjectId()).child("actor_templates").push().setValue(actorTemplate);
         }else{

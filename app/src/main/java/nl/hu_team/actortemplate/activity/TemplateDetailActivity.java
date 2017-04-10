@@ -1,6 +1,7 @@
 package nl.hu_team.actortemplate.activity;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -9,6 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -16,6 +18,8 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
+import java.io.IOException;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -41,6 +45,7 @@ public class TemplateDetailActivity extends AfterSignedInBaseActivity implements
 
     @BindView(R.id.detail_actortemplate_name) protected TextView templateName;
     @BindView(R.id.detail_actortemplate_description) protected TextView templateDescription;
+    @BindView(R.id.detail_actortemplate_photo) protected ImageView templatePhoto;
 
     @BindView(R.id.detail_actor_list) protected RecyclerView actorList;
     private ActorAdapter actorAdapter;
@@ -140,6 +145,19 @@ public class TemplateDetailActivity extends AfterSignedInBaseActivity implements
     private void setTemplateDetails(){
         templateName.setText(project.getActorTemplate().getName());
         templateDescription.setText(project.getActorTemplate().getDescription());
+
+        if(project.getActorTemplate().getImage() != null){
+            if(project.getActorTemplate().getImage().contains("http")){
+                try {
+                    Bitmap image = presenter.decodeFromBase64(project.getActorTemplate().getImage());
+                    templatePhoto.setImageBitmap(image);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }else{
+                //hier komt picasso
+            }
+        }
     }
 
     private void setActors(){
